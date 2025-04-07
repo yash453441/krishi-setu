@@ -73,8 +73,7 @@ const AddProduct = () => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        // "http://localhost:4000/api/machines/addMachine",
-        `${process.env.REACT_APP_BACKEND_URI}/machines/addMachine`,
+        `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/machines/addMachine`,
         formData
       );
       setloading(false);
@@ -94,8 +93,7 @@ const AddProduct = () => {
     const fetchdata = async () => {
       try {
         const response = await axios.post(
-          // "http://localhost:4000/api/users/isAuthenticated",
-          `${process.env.REACT_APP_BACKEND_URI}/users/isAuthenticated`,
+          `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/users/isAuthenticated`,
           { token }
         );
 
@@ -139,19 +137,19 @@ const AddProduct = () => {
               <div className="bg-[#f0eceb] w-[100vw] h-[80vh] flex flex-wrap p-8 max-md:overflow-hidden max-sm:p-0 max-sm:h-auto  max-sm:w-[100vw] ">
                 <div className=" h-[70vh] w-[50vw] px-4 max-sm:px-0 max-sm:w-[100vw]">
                   <form
-                    class="w-full overflow-y-scroll py-4 h-[67vh] p-4   "
+                    className="w-full overflow-y-scroll py-4 h-[67vh] p-4"
                     onSubmit={handleSubmit}
                   >
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                      <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label
-                          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                           for="title"
                         >
                           Machine Title
                         </label>
                         <input
-                          class="appearance-none block w-full bg-white text-gray-700 border border-gray-300  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          className="appearance-none block w-full bg-white text-gray-700 border border-gray-300  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                           id="title"
                           type="text"
                           name="title"
@@ -163,16 +161,16 @@ const AddProduct = () => {
                           placeholder="Machine Name"
                         />
                       </div>
-                      <div class="w-full md:w-1/2 px-3">
+                      <div className="w-full md:w-1/2 px-3">
                         <label
-                          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                           for="type"
                         >
                           Machine Type
                         </label>
-                        <div class="relative">
+                        <div className="relative">
                           <select
-                            class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 "
+                            className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 "
                             id="grid-state"
                             name="type"
                             required
@@ -187,9 +185,9 @@ const AddProduct = () => {
                             <option value="cultivater">Cultivater</option>
                             <option value="seeder">Seeder</option>
                           </select>
-                          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                             <svg
-                              class="fill-current h-4 w-4"
+                              className="fill-current h-4 w-4"
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 20 20"
                             >
@@ -199,16 +197,16 @@ const AddProduct = () => {
                         </div>
                       </div>
                     </div>
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                      <div class="w-full px-3">
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                      <div className="w-full px-3">
                         <label
-                          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                           for="short_description"
                         >
                           Short Description
                         </label>
                         <input
-                          class="appearance-none block w-full bg-white text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          className="appearance-none block w-full bg-white text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                           id="short_description"
                           name="shortdescription"
                           type="text"
@@ -222,16 +220,16 @@ const AddProduct = () => {
                       </div>
                     </div>
 
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                      <div class="w-full px-3">
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                      <div className="w-full px-3">
                         <label
-                          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                           for="description"
                         >
                           Description
                         </label>
                         <textarea
-                          class="appearance-none block w-full bg-white text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-40"
+                          className="appearance-none block w-full bg-white text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-40"
                           id="description"
                           type="text"
                           required
@@ -242,23 +240,23 @@ const AddProduct = () => {
                           }}
                           placeholder="Detailed Info..."
                         />
-                        <p class="text-gray-600 text-xs italic">
+                        <p className="text-gray-600 text-xs italic">
                           Make it as long and as crazy as you'd like
                         </p>
                       </div>
                     </div>
 
-                    <div class="flex flex-wrap -mx-3 mb-2">
-                      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <div className="flex flex-wrap -mx-3 mb-2">
+                      <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label
-                          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                           for="year"
                         >
                           Machine Model Year
                         </label>
-                        <div class="relative">
+                        <div className="relative">
                           <select
-                            class="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            className="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="year"
                             name="year"
                             required
@@ -286,9 +284,9 @@ const AddProduct = () => {
                             <option value="2022">2022</option>
                             <option value="2023">2023</option>
                           </select>
-                          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                             <svg
-                              class="fill-current h-4 w-4"
+                              className="fill-current h-4 w-4"
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 20 20"
                             >
@@ -297,15 +295,15 @@ const AddProduct = () => {
                           </div>
                         </div>
                       </div>
-                      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                      <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label
-                          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                           for="amount"
                         >
                           Rent Amount
                         </label>
                         <input
-                          class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                           id="amount"
                           required
                           type="number"
@@ -318,7 +316,7 @@ const AddProduct = () => {
                           placeholder="(Mention the amount acc. to per year)"
                         />
                       </div>
-                      <div class="w-full md:w-full px-3 mb-6 md:mb-0 mt-5">
+                      <div className="w-full md:w-full px-3 mb-6 md:mb-0 mt-5">
                         <label htmlFor="image" className="block font-bold mb-1">
                           Image:
                         </label>
@@ -335,7 +333,7 @@ const AddProduct = () => {
                         />
                       </div>
                     </div>
-                    <div class="w-full md:w-full  mb-6 md:mb-0 mt-5">
+                    <div className="w-full md:w-full  mb-6 md:mb-0 mt-5">
                       <button
                         type="submit"
                         className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2  rounded"

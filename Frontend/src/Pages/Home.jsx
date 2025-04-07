@@ -25,7 +25,7 @@ const Home = () => {
     const fetchdata = async () => {
       try {
         const response = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URI}/users/isAuthenticated`,
+          `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/users/isAuthenticated`,
           { token }
         );
 

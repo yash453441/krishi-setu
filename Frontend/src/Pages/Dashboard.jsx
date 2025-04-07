@@ -33,13 +33,12 @@ const Dashboard = () => {
     const fetchdata = async () => {
       try {
         const response = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URI}/users/isAuthenticated`,
+          `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/users/isAuthenticated`,
           { token }
         );
         const user = response.data.others;
         const machines = await axios.post(
-          // "http://localhost:4000/api/machines/getmachines",
-          `${process.env.REACT_APP_BACKEND_URI}/machines/getmachines`,
+          `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/machines/getmachines`,
           {
             token,
           }
@@ -48,8 +47,7 @@ const Dashboard = () => {
         setallmachines(machines.data.machines);
 
         const usermachine = await axios.post(
-          // "http://localhost:4000/api/machines/getusermachine",
-          `${process.env.REACT_APP_BACKEND_URI}/machines/getusermachine`,
+          `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/machines/getusermachine`,
           {
             userid: user._id,
             token: token,
@@ -84,33 +82,53 @@ const Dashboard = () => {
 
     if (!firstname || !lastname || !address || !pincode || !phonenumber) {
       toast.error("Fill all necessary Details");
-    } else {
-      setloading(true);
-      e.preventDefault();
-      try {
-        //console.log({token,_id,firstname,lastname,address,pincode,phonenumber,username})
-        const response = await axios.post(
-          // "http://localhost:4000/api/users/updateUser",
-          `${process.env.REACT_APP_BACKEND_URI}/users/updateUser`,
-          {
-            token,
-            _id,
-            firstname,
-            lastname,
-            address,
-            pincode,
-            phonenumber,
-            username,
-          }
-        );
-        setloading(false);
-        toast.success(response.data.message);
-        navigate("/");
-      } catch (err) {
-        toast.error(err.response.data.message);
-        console.log(err);
-        navigate("/signin");
-      }
+      return;
+    }
+
+    // Validate name format
+    const nameRegex = /^[a-zA-Z\s]{2,30}$/;
+    if (!nameRegex.test(firstname) || !nameRegex.test(lastname)) {
+      toast.error("Please enter valid first and last names (letters only, 2-30 characters)");
+      return;
+    }
+
+    // Validate phone number
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phonenumber)) {
+      toast.error("Please enter a valid 10-digit phone number");
+      return;
+    }
+
+    // Validate pincode
+    const pincodeRegex = /^[0-9]{6}$/;
+    if (!pincodeRegex.test(pincode)) {
+      toast.error("Please enter a valid 6-digit pincode");
+      return;
+    }
+
+    setloading(true);
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/users/updateUser`,
+        {
+          token,
+          _id,
+          firstname,
+          lastname,
+          address,
+          pincode: Number(pincode),
+          phonenumber: Number(phonenumber),
+          username,
+        }
+      );
+      setloading(false);
+      toast.success(response.data.message);
+      navigate("/");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "An error occurred while updating profile");
+      console.log(err);
+      setloading(false);
     }
   };
 

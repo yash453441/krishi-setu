@@ -36,55 +36,54 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <img className="h-12 w-auto" src={logo} alt="Logo" />
-            <div className="text-3xl h-12 w-20  mx-3 flex  text-gray-700 items-center justify-center font-extrabold ">
-              <span className="text-green-500">U</span>paj
+            <img className="h-14 w-auto transition-transform hover:scale-105" src={logo} alt="Logo" />
+            <div className="text-3xl h-12 mx-3 flex text-gray-700 items-center justify-center font-extrabold tracking-wider">
+              <span className="text-green-500">Krishi</span>
+              <span className="text-gray-600">Setu</span>
             </div>
           </div>
 
           {/* Navigation links */}
           <div className="hidden sm:block">
-            <div className="mx-3 space-x-2">
+            <div className="mx-3 space-x-4">
               <Link
                 to="/"
-                className="text-green-700 font-extrabold border-x-4 border-[#fbf8f8] hover:border-solid hover:rounded-3xl   hover:border-green-700 px-3 py-1 rounded-md  "
+                className="text-green-700 font-bold border-x-4 border-[#fbf8f8] hover:border-solid hover:rounded-3xl hover:border-green-700 px-4 py-2 rounded-md transition-all duration-300 hover:bg-green-50"
               >
                 Home
               </Link>
               <Link
                 to="/services"
-                className="text-green-700 font-extrabold border-x-4 border-[#fbf8f8]  hover:border-solid hover:rounded-3xl   hover:border-green-700 px-3 py-1 rounded-md  "
+                className="text-green-700 font-bold border-x-4 border-[#fbf8f8] hover:border-solid hover:rounded-3xl hover:border-green-700 px-4 py-2 rounded-md transition-all duration-300 hover:bg-green-50"
               >
                 Services
               </Link>
-
               <Link
                 to="/machines"
-                className="text-green-700 font-extrabold border-x-4 border-[#fbf8f8]  hover:border-solid hover:rounded-3xl   hover:border-green-700 px-3 py-1 rounded-md  "
+                className="text-green-700 font-bold border-x-4 border-[#fbf8f8] hover:border-solid hover:rounded-3xl hover:border-green-700 px-4 py-2 rounded-md transition-all duration-300 hover:bg-green-50"
               >
                 Machines
               </Link>
               <Link
                 to="/dashboard"
-                className="text-green-700 font-extrabold border-x-4 border-[#fbf8f8]  hover:border-solid hover:rounded-3xl   hover:border-green-700 px-3 py-1 rounded-md  "
+                className="text-green-700 font-bold border-x-4 border-[#fbf8f8] hover:border-solid hover:rounded-3xl hover:border-green-700 px-4 py-2 rounded-md transition-all duration-300 hover:bg-green-50"
               >
                 Dashboard
               </Link>
               <Link
                 to="/dashboard"
-                className="text-green-700 font-extrabold border-x-4 border-[#fbf8f8]  hover:border-solid hover:rounded-3xl   hover:border-green-700 px-3 py-1 rounded-md  "
+                className="text-green-700 font-bold border-x-4 border-[#fbf8f8] hover:border-solid hover:rounded-3xl hover:border-green-700 px-4 py-2 rounded-md transition-all duration-300 hover:bg-green-50"
               >
                 Contact
               </Link>
-
               <Link
                 to="/addproduct"
-                className="text-green-700 font-extrabold border-x-4 border-[#fbf8f8]  hover:border-solid hover:rounded-3xl   hover:border-green-700 px-3 py-1 rounded-md  "
+                className="text-green-700 font-bold border-x-4 border-[#fbf8f8] hover:border-solid hover:rounded-3xl hover:border-green-700 px-4 py-2 rounded-md transition-all duration-300 hover:bg-green-50"
               >
                 Add Product
               </Link>
               <Link
-                className="text-green-700 font-extrabold border-x-4 border-[#fbf8f8]  hover:border-solid hover:rounded-3xl   hover:border-green-700 px-3 py-1 rounded-md  "
+                className="text-green-700 font-bold border-x-4 border-[#fbf8f8] hover:border-solid hover:rounded-3xl hover:border-green-700 px-4 py-2 rounded-md transition-all duration-300 hover:bg-green-50"
                 onClick={() => setmodal(true)}
               >
                 Signout
@@ -128,21 +127,21 @@ const Navbar = () => {
 
         {modal ? (
           <div
-            class="relative z-10"
+            className="relative z-10"
             aria-labelledby="modal-title"
             role="dialog"
             aria-modal="true"
           >
-            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
-            <div class="fixed inset-0 z-10 overflow-y-auto">
-              <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                  <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                    <div class="sm:flex sm:items-start">
-                      <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+            <div className="fixed inset-0 z-10 overflow-y-auto">
+              <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                  <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div className="sm:flex sm:items-start">
+                      <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
                         <svg
-                          class="h-6 w-6 text-red-600"
+                          className="h-6 w-6 text-red-600"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke-width="1.5"
@@ -156,32 +155,32 @@ const Navbar = () => {
                           />
                         </svg>
                       </div>
-                      <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                      <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                         <h3
-                          class="text-base font-semibold leading-6 text-gray-900"
+                          className="text-base font-semibold leading-6 text-gray-900"
                           id="modal-title"
                         >
                           SignOut account
                         </h3>
-                        <div class="mt-2">
-                          <p class="text-sm text-gray-500">
+                        <div className="mt-2">
+                          <p className="text-sm text-gray-500">
                             Are you sure you want to SignOut your account?
                           </p>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                  <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                     <button
                       type="button"
-                      class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                      className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
                       onClick={handleSignout}
                     >
                       SignOut
                     </button>
                     <button
                       type="button"
-                      class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                      className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                       onClick={() => setmodal(false)}
                     >
                       Cancel
@@ -198,50 +197,45 @@ const Navbar = () => {
         {/* Mobile menu */}
         {isMobileMenuOpen && (
           <div className="sm:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
+            <div className="px-2 pt-2 pb-3 space-y-2">
               <Link
                 to="/"
-                className="text-green-700  hover:bg-green-100  hover:border-xl block px-3 py-2 rounded-md text-base font-medium"
+                className="text-green-700 hover:bg-green-50 block px-4 py-2 rounded-md text-base font-bold transition-all duration-300"
               >
                 Home
               </Link>
               <Link
                 to="/services"
-                className="text-green-700  hover:bg-green-100 hover:border-xl block px-3 py-2 rounded-md text-base font-medium"
+                className="text-green-700 hover:bg-green-50 block px-4 py-2 rounded-md text-base font-bold transition-all duration-300"
               >
                 Services
               </Link>
-              {/* Add more links and submenus as needed */}
-
               <Link
                 to="/machines"
-                className="text-green-700  hover:bg-green-100  hover:border-xl block px-3 py-2 rounded-md text-base font-medium"
+                className="text-green-700 hover:bg-green-50 block px-4 py-2 rounded-md text-base font-bold transition-all duration-300"
               >
                 Machines
               </Link>
-
               <Link
                 to="/dashboard"
-                className="text-green-700  hover:bg-green-100  hover:border-xl block px-3 py-2 rounded-md text-base font-medium"
+                className="text-green-700 hover:bg-green-50 block px-4 py-2 rounded-md text-base font-bold transition-all duration-300"
               >
                 Dashboard
               </Link>
-
               <Link
                 to="/dashboard"
-                className="text-green-700  hover:bg-green-100  hover:border-xl block px-3 py-2 rounded-md text-base font-medium"
+                className="text-green-700 hover:bg-green-50 block px-4 py-2 rounded-md text-base font-bold transition-all duration-300"
               >
                 Contact
               </Link>
               <Link
                 to="/addproduct"
-                className="text-green-700  hover:bg-green-100  hover:border-xl block px-3 py-2 rounded-md text-base font-medium"
+                className="text-green-700 hover:bg-green-50 block px-4 py-2 rounded-md text-base font-bold transition-all duration-300"
               >
                 Add Product
               </Link>
-
               <Link
-                className="text-green-700  hover:bg-green-100  hover:border-xl block px-3 py-2 rounded-md text-base font-medium"
+                className="text-green-700 hover:bg-green-50 block px-4 py-2 rounded-md text-base font-bold transition-all duration-300"
                 onClick={() => setmodal(true)}
               >
                 Signout

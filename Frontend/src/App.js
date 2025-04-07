@@ -17,6 +17,7 @@ import AddProduct from "./Pages/AddProduct.jsx";
 import Machine from "./Pages/Machine.jsx";
 import RequestList from "./Components/RequestList.jsx";
 import ActiveRentalCard from "./Components/ActiveRentalCard.jsx";
+import Services from "./Pages/Services.jsx";
 
 const App = () => {
   const [loading, setloading] = useState(false);
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/signin" element={<LoginPage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Services />} />
           <Route
             path="/dashboard"
             element={<ProtectedRoute component={Dashboard} />}
@@ -59,7 +61,6 @@ const App = () => {
             path="/machines/requestlist/:id"
             element={<ProtectedRoute component={RequestList} />}
           ></Route>
-
           <Route
             path="/machines/activerent/:id"
             element={<ProtectedRoute component={ActiveRentalCard} />}

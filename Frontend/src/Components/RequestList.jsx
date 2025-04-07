@@ -23,14 +23,12 @@ const RequestList = () => {
 
       try {
         const machineData = await axios.post(
-          // "http://localhost:4000/api/machines/getmachinebyid",
-          `${process.env.REACT_APP_BACKEND_URI}/api/machines/getmachinebyid`,
+          `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/machines/getmachinebyid`,
           { machineid, token }
         );
         setmachine(machineData.data.data);
         const machinerequests = await axios.post(
-          // "http://localhost:4000/api/requests/getmachinerequest",
-          `${process.env.REACT_APP_BACKEND_URI}/api/requests/getmachinerequest`,
+          `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/requests/getmachinerequest`,
           { machineid, token }
         );
 

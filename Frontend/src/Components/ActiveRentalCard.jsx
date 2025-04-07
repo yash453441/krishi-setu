@@ -21,27 +21,33 @@ const ActiveRentalCard = () => {
 
     const fetchData = async () => {
       try {
-        const activerent = await axios.post(process.env.REACT_APP_BACKEND_URI, {
-          machineid,
-          token,
-        });
+        const activerent = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/requests/getactiverental`,
+          {
+            machineid,
+            token,
+          }
+        );
         setactiverentdata(activerent.data.activerentdata[0]);
         const renterid = activerent.data.activerentdata[0].renter;
         const ownerid = activerent.data.activerentdata[0].owner;
 
-        const rentUser = await axios.post(process.env.REACT_APP_BACKEND_URI, {
-          _id: renterid,
-          token: token,
-        });
+        const rentUser = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/users/getUser`,
+          {
+            _id: renterid,
+            token: token,
+          }
+        );
         setrenter(rentUser.data.others);
         const ownerUser = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URI}/api/users/getUser`,
+          `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/users/getUser`,
           { _id: ownerid, token: token }
         );
         setowner(ownerUser.data.others);
 
         const machineData = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URI}/api/machines/getmachinebyid`,
+          `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/machines/getmachinebyid`,
           { machineid, token: token }
         );
         setmachine(machineData.data.data);

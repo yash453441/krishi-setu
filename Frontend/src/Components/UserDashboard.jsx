@@ -61,12 +61,12 @@ const UserDashboard = ({ usermachinedata, machinedata }) => {
       try {
         const response = await axios.post(
           // "http://localhost:4000/api/users/isAuthenticated",
-          `${process.env.REACT_APP_BACKEND_URI}/api/users/isAuthenticated`,
+          `${process.env.REACT_APP_BACKEND_URI}/users/isAuthenticated`,
           { token }
         );
         const machines = await axios.post(
           // "http://localhost:4000/api/machines/getmachines",
-          `${process.env.REACT_APP_BACKEND_URI}/api/machines/getmachines`,
+          `${process.env.REACT_APP_BACKEND_URI}/machines/getmachines`,
           {
             token,
           }

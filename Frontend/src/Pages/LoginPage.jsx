@@ -20,7 +20,7 @@ const LoginPage = () => {
     setsubmitLoader(true);
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URI}/users/signin`,
+        `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/users/signin`,
         { username, password }
       );
 
@@ -91,7 +91,7 @@ const LoginPage = () => {
               <div role="status" className="text-center">
                 <svg
                   aria-hidden="true"
-                  class="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-green-500"
+                  className="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-green-500"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +105,7 @@ const LoginPage = () => {
                     fill="currentFill"
                   />
                 </svg>
-                <span class="sr-only">Loading...</span>
+                <span className="sr-only">Loading...</span>
               </div>
             </>
           ) : (

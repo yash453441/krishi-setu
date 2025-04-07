@@ -58,12 +58,11 @@ const Machine = () => {
     const fetchdata = async () => {
       try {
         const response = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URI}/users/isAuthenticated`,
+          `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/users/isAuthenticated`,
           { token }
         );
         const machines = await axios.post(
-          // "http://localhost:4000/api/machines/getmachines",
-          `${process.env.REACT_APP_BACKEND_URI}/machines/getmachines`,
+          `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/machines/getmachines`,
           {
             token,
           }
