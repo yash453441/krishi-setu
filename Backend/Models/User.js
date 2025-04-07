@@ -35,6 +35,7 @@ const UserSchema = new Schema(
     phonenumber: {
       type: Number,
       default: 0,
+      unique: true,
     },
   },
   { timestamps: true }
