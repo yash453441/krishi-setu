@@ -1,18 +1,49 @@
-import React from "react";
-import Navbar from "../Components/Navbar";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
-import Loading from "../Components/Loading.jsx";
+import { 
+  TruckIcon, 
+  CalendarDaysIcon, 
+  CurrencyDollarIcon,
+  PhoneIcon,
+  ArrowRightIcon
+} from "@heroicons/react/24/outline";
 import axios from "axios";
+
+import Navbar from "../Components/Navbar";
+import Loading from "../Components/Loading.jsx";
 import harvester from "../Images/harvester-white-bg-clone.png";
 import tractor from "../Images/tractor-bg3.png";
 import tractor1 from "../Images/tractor-bg4.png";
 import { FaEnvelope, FaPhone, FaFacebook, FaTwitter } from "react-icons/fa";
 
 import { add, gettoken, remove } from "../Redux/Slices/authReducer.js";
+
+const features = [
+  {
+    title: "Equipment Rental",
+    description: "Access modern farming equipment on demand",
+    icon: TruckIcon,
+  },
+  {
+    title: "Easy Scheduling",
+    description: "Book equipment with flexible time slots",
+    icon: CalendarDaysIcon,
+  },
+  {
+    title: "Transparent Pricing",
+    description: "Clear, upfront costs with no hidden fees",
+    icon: CurrencyDollarIcon,
+  },
+  {
+    title: "24/7 Support",
+    description: "Round-the-clock assistance for your needs",
+    icon: PhoneIcon,
+  },
+];
 
 const Home = () => {
   const [loading, setloading] = useState(false);
@@ -49,128 +80,140 @@ const Home = () => {
 
     fetchdata();
   }, []);
-  return (
-    <div className="max-sm:overflow-x-hidden overflow-x-hidden  ">
-      <Navbar />
-      <div className="w-full h-auto flex justify-between items-center  bg-[#fcfaf9] wrap overflow-x-hidden">
-        <div className="w-[50vw] h-[120%]">
-          <h1 className="  text-7xl font-bold w-64 ml-20 absolute top-36 left-28 z-20 text-gray-600 max-xl:text-5xl max-xl:left-2 max-sm:left-1 max-sm:ml-1 max-sm:text-4xl">
-            <span className="text-[13rem] text-gray-300 max-xl:text-8xl max-md:text-gray-700  max-sm:text-7xl">
-              Harvest
-            </span>{" "}
-            Your Potential...
-          </h1>
-          <h1 className=" text-3xl font-semibold  text-gray-600 absolute top-[75%] left-48 z-20 w-[30vw] ] max-xl:text-2xl max-xl:top-[50%] max-xl:left-24 max-sm:w-[80vw] max-sm:left-3 max-sm:text-lg max-sm:top-[45%]">
-            Unlocking the Power of Farming Machines for Rent!
-          </h1>
-        </div>
-        <img
-          src={harvester}
-          className="h-[110vh] max-sm:absolute max-sm:top-80 max-sm:right-0 max-sm:h-[50%] max-sm:mt-0 max-md:h-[70%] max-lg:h-[90%] opacity-90 z-10 max-md:opacity-50 max-sm:opacity-20  "
-        />
-      </div>
-      <div className="bg-[#fcfaf9] flex justify-around items-center flex-wrap ">
-        <div className="w-[50vw]">
-          <img
-            src={tractor}
-            className="h-[100vh] opacity-90 max-xl:absolute max-xl:top-[130%] max-xl:opacity-80 max-xl:h-[80vh] max-xl:w-[50vw] max-lg:w-[70vw] max-lg:opacity-60 max-lg:left-4 max-lg:top-[100%] max-md:w-[80vw] max-md:h-[80vh] max-md:opacity-40 max-md:top-[150%] max-sm:w-[90vw] max-sm:hidden "
-          />
-        </div>
 
-        <section className="w-[45vw] max-sm:m-auto max-sm:top-[90%] h-[100vh] p-3 z-20 max-xl:w-[50vw] max-lg:absolute  max-lg:top-[90%] max-lg:right-10 max-lg:w-[70vw] max-md:w-[90vw] ">
-          <h1 className="text-[10rem] max-sm:text-[4rem]  font-extrabold  text-gray-300 max-xl:text-[6rem] max-lg:text-gray-400 max-lg:text-right max-md:text-center">
-            <span className="text-[12rem] max-sm:text-[6rem]">S</span>ervices
-          </h1>
-          <div className="flex justify-between items-center flex-wrap max-lg:absolute max-lg:w-full">
-            <div className="border bg-gray-200  border-gray-300 m-3 p-4 w-[45%] rounded-lg shadow-xl max-md:bg-gray-400 max-sm:w-full max-sm:bg-emerald-200">
-              <p className="font-bold text-lg mb-2">
-                Equipment Delivery and Pickup
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <Navbar />
+      
+      {/* Hero Section */}
+      <section className="relative pt-20 pb-32 overflow-hidden">
+        <div className="absolute inset-0 bg-dot-pattern opacity-[0.03]" />
+        
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex-1 text-center lg:text-left"
+            >
+              <h1 className="heading-1 mb-6">
+                <span className="text-gradient">Harvest</span> Your Full Potential
+              </h1>
+              <p className="text-xl text-gray-600 mb-8">
+                Revolutionize your farming experience with our modern equipment rental platform. Access cutting-edge machinery when you need it.
               </p>
-              <p>Convenient delivery and pickup services.</p>
-            </div>
-            <div className="border bg-gray-200  border-gray-300 m-3 p-4 w-[45%] rounded-lg shadow-xl max-md:bg-gray-400 max-sm:w-full max-sm:bg-emerald-200">
-              <p className="font-bold text-lg mb-2">
-                Online Booking and Reservations
-              </p>
-              <p>Easily book equipment online.</p>
-            </div>
-            <div className="border  bg-gray-200 border-gray-300 m-3 p-4 w-[45%] rounded-lg shadow-xl max-md:bg-gray-400 max-sm:w-full max-sm:bg-emerald-200">
-              <p className="font-bold text-lg mb-2">
-                Pricing and Transparent Costs
-              </p>
-              <p>Clear and upfront pricing.</p>
-            </div>
-            <div className="border  bg-gray-200 border-gray-300 m-3 p-4 w-[45%] rounded-lg shadow-xl max-md:bg-gray-400 max-sm:w-full max-sm:bg-emerald-200">
-              <p className="font-bold text-lg mb-2">
-                Contact and Support Channels
-              </p>
-              <p>Various contact options.</p>
-            </div>
-          </div>
-        </section>
-      </div>
-      <div className="bg-[#fcfaf9] w-[100vw] h-[100vh] max-md:top-[230%] max-sm:top-[200%] flex justify-around px-8 max-lg:absolute max-lg:top-[180%] max-lg:left-0 max-lg:w-[100vw]">
-        <div className="w-[50vw] h-[70vh] z-20 max-lg:absolute max-lg:left-0 max-lg:h-[80vh] max-md:w-[100vw]">
-          <h1 className="text-[10rem] text-center max-md:text-[4rem]   font-extrabold  text-gray-300 max-xl:text-[6rem] max-lg:text-gray-400  max-md:text-center max-lg:text-[4rem] max-lg:text-left">
-            <span className="text-[12rem] max-sm:text-[6rem] ">C</span>ontact
-          </h1>
-          <section className=" py-8 max-md:w-[60vw] max-sm:m-auto  max-sm:text-md">
-            <div className="container mx-auto px-4">
-              <div className="flex justify-center max-lg:w-[40vw] max-md:w-full max-md:m-auto ">
-                <div className="flex items-center justify-around w-3/4  space-x-4">
-                  {/* Email */}
-                  <Link
-                    href="mailto:info@example.com"
-                    className="contact-icon text-7xl hover:text-red-700 max-sm:text-4xl"
-                  >
-                    <FaEnvelope />
-                  </Link>
-                  {/* Phone */}
-                  <Link
-                    href="tel:+123456789"
-                    className="contact-icon text-7xl hover:text-blue-400 max-sm:text-4xl"
-                  >
-                    <FaPhone />
-                  </Link>
-                  {/* Facebook */}
-                  <Link
-                    href="https://www.facebook.com/example"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="contact-icon text-7xl hover:text-blue-900 max-sm:text-4xl"
-                  >
-                    <FaFacebook />
-                  </Link>
-                  {/* Twitter */}
-                  <Link
-                    href="https://twitter.com/example"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="contact-icon text-7xl hover:text-blue-500 max-sm:text-4xl"
-                  >
-                    <FaTwitter />
-                  </Link>
-                </div>
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                <Link to="/services" className="btn-primary">
+                  Get Started
+                  <ArrowRightIcon className="w-5 h-5 ml-2" />
+                </Link>
+                <Link to="/about" className="btn-outline">
+                  Learn More
+                </Link>
               </div>
-            </div>
-          </section>
-          <div className="w-full text-xl text-slate-600 text-center px-4 max-xl:text-lg max-md:px-8 max-md:font-bold max-sm:text-sm">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged.
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="flex-1 relative"
+            >
+              <div className="absolute inset-0 bg-gradient-radial from-primary-100/30 to-transparent" />
+              <img
+                src={harvester}
+                alt="Modern Harvester"
+                className="relative z-10 w-full h-auto max-w-2xl mx-auto"
+              />
+            </motion.div>
           </div>
         </div>
-        <img
-          src={tractor1}
-          className="max-xl:h-[80vh] w-[60vw] max-lg:absolute max-lg:right-0 max-lg:opacity-80 max-md:top-[50%] max-md:w-[80vw] max-md:opacity-30 max-sm:top-[40%] max-sm:w-[100vw] max-sm:h-[50vh]"
-        />
-      </div>
-      <div className="text-center text-gray-400  max-xl:absolute max-xl:top-[310%] max-xl:right-[40%]  max-lg:absolute max-lg:top-[320%] max-lg:right-[30%] max-md:top-[290%] max-sm:left-[25%]">
-        Design with Love ❤ IIST Coder [UP]
-      </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-24 bg-gradient-to-b from-white to-gray-50">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center max-w-3xl mx-auto mb-16"
+          >
+            <h2 className="heading-2 mb-4">Why Choose Us</h2>
+            <p className="text-xl text-gray-600">
+              Experience the future of farming with our innovative platform
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <div className="glass-card rounded-2xl p-6 h-full hover:shadow-glow transition-all duration-300">
+                  <div className="inline-flex items-center justify-center p-3 rounded-xl bg-primary-50 text-primary-500 mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <feature.icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2 group-hover:text-primary-500 transition-colors duration-300">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600">
+                    {feature.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-success-500/10" />
+        <div className="absolute inset-0 bg-dot-pattern opacity-[0.05]" />
+        
+        <div className="container mx-auto px-4 relative">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="glass-card max-w-4xl mx-auto text-center p-12 rounded-2xl"
+          >
+            <h2 className="heading-2 mb-4">Ready to Transform Your Farming?</h2>
+            <p className="text-xl text-gray-600 mb-8">
+              Join thousands of farmers who are already benefiting from our modern equipment rental platform
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Link to="/signup" className="btn-primary">
+                Get Started Now
+                <ArrowRightIcon className="w-5 h-5 ml-2" />
+              </Link>
+              <Link to="/contact" className="btn-outline">
+                Contact Sales
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-white py-8 border-t border-gray-100">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-gray-600">
+            Designed with ❤️ by IIST Coder [UP]
+          </p>
+        </div>
+      </footer>
+
+      <ToastContainer position="bottom-right" />
     </div>
   );
 };

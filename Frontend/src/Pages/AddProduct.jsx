@@ -1,14 +1,17 @@
-import React from "react";
-import mower from "../Images/mower-bg.png";
-import Navbar from "../Components/Navbar";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import {
+  PhotoIcon,
+  ArrowUpTrayIcon,
+  CheckCircleIcon,
+} from "@heroicons/react/24/outline";
+import axios from "axios";
+import Navbar from "../Components/Navbar";
 import Loading from "../Components/Loading";
-import { Link } from "react-router-dom";
 import { add, gettoken, remove } from "../Redux/Slices/authReducer";
 
 const AddProduct = () => {
@@ -23,34 +26,20 @@ const AddProduct = () => {
   const [image, setimage] = useState("");
   const [year, setyear] = useState("");
   const [rentamount, setrentamount] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
   const user = useSelector((state) => state.auth.user);
-  let url;
 
-  // const [data, setdata] = useState({
-  //   title: "",
-  //   type: "",
-  //   image: null,
-  //   description: "",
-  //   shortdescription: "",
-  //   year: "",
-  //   amount: "",
-  // });
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setdata({
-  //     ...data,
-  //     [name]: value,
-  //   });
-  // };
-
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   setdata({
-  //     ...data,
-  //     image: file,
-  //   });
-  // };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setimage(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,11 +55,6 @@ const AddProduct = () => {
     formData.append("image", image);
     formData.append("_id", user._id);
 
-    //console.log(title,type,description,shortdescription,year,amount,image);
-
-    // Here you can do something with the data, for example, send it to a server.
-    // console.log(data);
-    const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URI.replace(/\/+$/, '')}/api/machines/addMachine`,
@@ -78,7 +62,6 @@ const AddProduct = () => {
       );
       setloading(false);
       toast.success(response.data.message);
-
       navigate("/");
     } catch (err) {
       setloading(false);
@@ -120,254 +103,203 @@ const AddProduct = () => {
   }, []);
 
   return (
-    <div className="max-sm:overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {loading ? (
         <Loading />
       ) : (
         <>
           <Navbar />
-
           {isUpdate ? (
-            <>
-              <div className="overflow-hidden  bg-[#f0eceb] w-[100vw] max-sm:w-[100vw] max-sm:overflow-hidden">
-                <h1 className="text-7xl bg-[#f0eceb]  max-md:text-4xl font-extrabold px-12 text-gray-300  text-center md:text-left max-sm:py-3">
-                  Add Machine
-                </h1>
-              </div>
-              <div className="bg-[#f0eceb] w-[100vw] h-[80vh] flex flex-wrap p-8 max-md:overflow-hidden max-sm:p-0 max-sm:h-auto  max-sm:w-[100vw] ">
-                <div className=" h-[70vh] w-[50vw] px-4 max-sm:px-0 max-sm:w-[100vw]">
-                  <form
-                    className="w-full overflow-y-scroll py-4 h-[67vh] p-4"
-                    onSubmit={handleSubmit}
-                  >
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                      <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label
-                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                          for="title"
-                        >
-                          Machine Title
+            <div className="container mx-auto px-4 py-12">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="max-w-4xl mx-auto"
+              >
+                <div className="text-center mb-12">
+                  <h1 className="heading-1 mb-4">
+                    Add Your <span className="text-gradient">Equipment</span>
+                  </h1>
+                  <p className="text-xl text-gray-600">
+                    List your farming equipment and help fellow farmers access modern machinery
+                  </p>
+                </div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="glass-card rounded-2xl p-8"
+                >
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Equipment Title
                         </label>
                         <input
-                          className="appearance-none block w-full bg-white text-gray-700 border border-gray-300  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                          id="title"
                           type="text"
-                          name="title"
                           required
                           value={title}
-                          onChange={(e) => {
-                            settitle(e.target.value);
-                          }}
-                          placeholder="Machine Name"
+                          onChange={(e) => settitle(e.target.value)}
+                          className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                          placeholder="Enter equipment name"
                         />
                       </div>
-                      <div className="w-full md:w-1/2 px-3">
-                        <label
-                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                          for="type"
-                        >
-                          Machine Type
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Equipment Type
                         </label>
-                        <div className="relative">
-                          <select
-                            className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 "
-                            id="grid-state"
-                            name="type"
-                            required
-                            value={type}
-                            onChange={(e) => {
-                              settype(e.target.value);
-                            }}
-                          >
-                            <option value="">Select Type</option>
-                            <option value="tractor">Tractor</option>
-                            <option value="harvester">Harvester</option>
-                            <option value="cultivater">Cultivater</option>
-                            <option value="seeder">Seeder</option>
-                          </select>
-                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg
-                              className="fill-current h-4 w-4"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 20 20"
-                            >
-                              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                      <div className="w-full px-3">
-                        <label
-                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                          for="short_description"
+                        <select
+                          required
+                          value={type}
+                          onChange={(e) => settype(e.target.value)}
+                          className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                         >
+                          <option value="">Select Type</option>
+                          <option value="tractor">Tractor</option>
+                          <option value="harvester">Harvester</option>
+                          <option value="cultivater">Cultivator</option>
+                          <option value="seeder">Seeder</option>
+                        </select>
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
                           Short Description
                         </label>
                         <input
-                          className="appearance-none block w-full bg-white text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                          id="short_description"
-                          name="shortdescription"
                           type="text"
                           required
                           value={shortdescription}
-                          onChange={(e) => {
-                            setshortdescription(e.target.value);
-                          }}
-                          placeholder="Short Detail about Machine"
+                          onChange={(e) => setshortdescription(e.target.value)}
+                          className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                          placeholder="Brief overview of your equipment"
                         />
                       </div>
-                    </div>
 
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                      <div className="w-full px-3">
-                        <label
-                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                          for="description"
-                        >
-                          Description
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Detailed Description
                         </label>
                         <textarea
-                          className="appearance-none block w-full bg-white text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-40"
-                          id="description"
-                          type="text"
                           required
-                          name="description"
                           value={description}
-                          onChange={(e) => {
-                            setdescription(e.target.value);
-                          }}
-                          placeholder="Detailed Info..."
+                          onChange={(e) => setdescription(e.target.value)}
+                          rows="4"
+                          className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                          placeholder="Provide detailed information about your equipment..."
                         />
-                        <p className="text-gray-600 text-xs italic">
-                          Make it as long and as crazy as you'd like
-                        </p>
                       </div>
-                    </div>
 
-                    <div className="flex flex-wrap -mx-3 mb-2">
-                      <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label
-                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                          for="year"
-                        >
-                          Machine Model Year
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Manufacturing Year
                         </label>
-                        <div className="relative">
-                          <select
-                            className="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="year"
-                            name="year"
-                            required
-                            value={year}
-                            onChange={(e) => {
-                              setyear(e.target.value);
-                            }}
-                            placeholder="Manufactured Year"
-                            defaultValue=""
-                          >
-                            <option value="">Select Year</option>
-                            <option value="2009">2009</option>
-                            <option value="2010">2010</option>
-                            <option value="2011">2011</option>
-                            <option value="2012">2012</option>
-                            <option value="2013">2013</option>
-                            <option value="2014">2014</option>
-                            <option value="2015">2015</option>
-                            <option value="2016">2016</option>
-                            <option value="2017">2017</option>
-                            <option value="2018">2018</option>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                          </select>
-                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg
-                              className="fill-current h-4 w-4"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 20 20"
-                            >
-                              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                            </svg>
+                        <input
+                          type="number"
+                          required
+                          value={year}
+                          onChange={(e) => setyear(e.target.value)}
+                          className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                          placeholder="YYYY"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Rent Amount (per day)
+                        </label>
+                        <input
+                          type="number"
+                          required
+                          value={rentamount}
+                          onChange={(e) => setrentamount(e.target.value)}
+                          className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                          placeholder="Enter amount in INR"
+                        />
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Equipment Image
+                        </label>
+                        <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-primary-500 transition-colors duration-200">
+                          <div className="space-y-1 text-center">
+                            {imagePreview ? (
+                              <div className="relative">
+                                <img
+                                  src={imagePreview}
+                                  alt="Preview"
+                                  className="mx-auto h-32 w-auto rounded-lg"
+                                />
+                                <CheckCircleIcon className="h-8 w-8 text-green-500 absolute -top-2 -right-2" />
+                              </div>
+                            ) : (
+                              <PhotoIcon className="mx-auto h-12 w-12 text-gray-400" />
+                            )}
+                            <div className="flex text-sm text-gray-600">
+                              <label className="relative cursor-pointer bg-white rounded-md font-medium text-primary-600 hover:text-primary-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary-500">
+                                <span>Upload a file</span>
+                                <input
+                                  type="file"
+                                  required
+                                  onChange={handleImageChange}
+                                  className="sr-only"
+                                />
+                              </label>
+                              <p className="pl-1">or drag and drop</p>
+                            </div>
+                            <p className="text-xs text-gray-500">
+                              PNG, JPG, GIF up to 10MB
+                            </p>
                           </div>
                         </div>
                       </div>
-                      <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label
-                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                          for="amount"
-                        >
-                          Rent Amount
-                        </label>
-                        <input
-                          className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                          id="amount"
-                          required
-                          type="number"
-                          name="amount"
-                          value={rentamount}
-                          onChange={(e) => {
-                            setrentamount(e.target.value);
-                          }}
-                          min="5000"
-                          placeholder="(Mention the amount acc. to per year)"
-                        />
-                      </div>
-                      <div className="w-full md:w-full px-3 mb-6 md:mb-0 mt-5">
-                        <label htmlFor="image" className="block font-bold mb-1">
-                          Image:
-                        </label>
-                        <input
-                          type="file"
-                          required
-                          id="image"
-                          name="image"
-                          accept="image/*"
-                          onChange={(e) => {
-                            setimage(e.target.files[0]);
-                          }}
-                          className="w-full border rounded px-3 py-2"
-                        />
-                      </div>
                     </div>
-                    <div className="w-full md:w-full  mb-6 md:mb-0 mt-5">
+
+                    <div className="flex justify-end space-x-4">
+                      <Link
+                        to="/"
+                        className="btn-outline"
+                      >
+                        Cancel
+                      </Link>
                       <button
                         type="submit"
-                        className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2  rounded"
+                        className="btn-primary inline-flex items-center"
                       >
-                        Submit
+                        <ArrowUpTrayIcon className="w-5 h-5 mr-2" />
+                        List Equipment
                       </button>
                     </div>
                   </form>
-                </div>
-
-                <img
-                  src={mower}
-                  alt="machine image"
-                  className="h-[70vh] w-[33vw] m-auto max-lg:w-[30vw] max-lg:h-[50vh] max-md:w-[70vw] max-md:h-[60vh] max-sm:h-[35vh] max-sm:w-[70vw] max-sm:opacity-30"
-                />
-              </div>
-            </>
+                </motion.div>
+              </motion.div>
+            </div>
           ) : (
-            <>
-              <div className="bg-[#f0eceb] h-[90vh] ">
-                <div className=" text-5xl h-60 flex justify-center items-center font-bold text-gray-400 text-center">
-                  No Access, Complete Your Profile....
-                </div>
-                <Link
-                  to="/dashboard"
-                  className="text-xl h-20 flex justify-center items-center text-blue-700 hover:underline"
-                >
-                  Go to Dashboard...
+            <div className="container mx-auto px-4 py-12 text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="glass-card max-w-2xl mx-auto p-8 rounded-2xl"
+              >
+                <h2 className="heading-2 mb-4">Account Not Verified</h2>
+                <p className="text-xl text-gray-600 mb-8">
+                  Please verify your account to list equipment.
+                </p>
+                <Link to="/profile" className="btn-primary">
+                  Go to Profile
                 </Link>
-              </div>
-            </>
+              </motion.div>
+            </div>
           )}
         </>
       )}
+      <ToastContainer position="bottom-right" />
     </div>
   );
 };

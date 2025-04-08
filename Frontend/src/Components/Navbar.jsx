@@ -31,7 +31,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className=" sticky top-0 shadow-md shadow-gray-400 bg-[#fbf8f8] z-40">
+    <nav className="sticky top-0 mx-4 my-2 rounded-2xl shadow-lg bg-white/80 backdrop-blur-md z-40 border border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -48,42 +48,42 @@ const Navbar = () => {
             <div className="mx-3 space-x-4">
               <Link
                 to="/"
-                className="text-green-700 font-bold border-x-4 border-[#fbf8f8] hover:border-solid hover:rounded-3xl hover:border-green-700 px-4 py-2 rounded-md transition-all duration-300 hover:bg-green-50"
+                className="text-green-700 font-bold px-4 py-2 rounded-xl transition-all duration-300 hover:bg-green-50/80 hover:shadow-md"
               >
                 Home
               </Link>
               <Link
                 to="/services"
-                className="text-green-700 font-bold border-x-4 border-[#fbf8f8] hover:border-solid hover:rounded-3xl hover:border-green-700 px-4 py-2 rounded-md transition-all duration-300 hover:bg-green-50"
+                className="text-green-700 font-bold px-4 py-2 rounded-xl transition-all duration-300 hover:bg-green-50/80 hover:shadow-md"
               >
                 Services
               </Link>
               <Link
                 to="/machines"
-                className="text-green-700 font-bold border-x-4 border-[#fbf8f8] hover:border-solid hover:rounded-3xl hover:border-green-700 px-4 py-2 rounded-md transition-all duration-300 hover:bg-green-50"
+                className="text-green-700 font-bold px-4 py-2 rounded-xl transition-all duration-300 hover:bg-green-50/80 hover:shadow-md"
               >
                 Machines
               </Link>
               <Link
                 to="/dashboard"
-                className="text-green-700 font-bold border-x-4 border-[#fbf8f8] hover:border-solid hover:rounded-3xl hover:border-green-700 px-4 py-2 rounded-md transition-all duration-300 hover:bg-green-50"
+                className="text-green-700 font-bold px-4 py-2 rounded-xl transition-all duration-300 hover:bg-green-50/80 hover:shadow-md"
               >
                 Dashboard
               </Link>
               <Link
                 to="/dashboard"
-                className="text-green-700 font-bold border-x-4 border-[#fbf8f8] hover:border-solid hover:rounded-3xl hover:border-green-700 px-4 py-2 rounded-md transition-all duration-300 hover:bg-green-50"
+                className="text-green-700 font-bold px-4 py-2 rounded-xl transition-all duration-300 hover:bg-green-50/80 hover:shadow-md"
               >
                 Contact
               </Link>
               <Link
                 to="/addproduct"
-                className="text-green-700 font-bold border-x-4 border-[#fbf8f8] hover:border-solid hover:rounded-3xl hover:border-green-700 px-4 py-2 rounded-md transition-all duration-300 hover:bg-green-50"
+                className="text-green-700 font-bold px-4 py-2 rounded-xl transition-all duration-300 hover:bg-green-50/80 hover:shadow-md"
               >
                 Add Product
               </Link>
               <Link
-                className="text-green-700 font-bold border-x-4 border-[#fbf8f8] hover:border-solid hover:rounded-3xl hover:border-green-700 px-4 py-2 rounded-md transition-all duration-300 hover:bg-green-50"
+                className="text-green-700 font-bold px-4 py-2 rounded-xl transition-all duration-300 hover:bg-green-50/80 hover:shadow-md"
                 onClick={() => setmodal(true)}
               >
                 Signout
