@@ -31,54 +31,53 @@ const UserDashboard = ({ usermachinedata, machinedata }) => {
     setloading(true);
     const fetchdata = async () => {
       try {
-        // Only check authentication if we have a token
-        if (token) {
-          const response = await axios.post(
-            `${process.env.REACT_APP_BACKEND_URI}/users/isAuthenticated`,
-            { token }
-          );
-          
-          if (response.data.others) {
-            dispatch(add(response.data.others));
-            dispatch(gettoken(token));
-          }
-        }
-
-        // Get machines data regardless of authentication
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URI}/users/isAuthenticated`,
+          { token }
+        );
         const machines = await axios.post(
           `${process.env.REACT_APP_BACKEND_URI}/machines/getmachines`,
           { token }
         );
 
+        const user = response.data.others;
         const a = machines.data.machines;
         setmachines(a);
-        setloading(false);
 
-        const data = machinedata.filter(
-          (item) => item.sellerid === usermachinedata.userid
-        );
-        const rentusermachines = usermachinedata.rented;
-        const rentdata = machinedata.filter((item) => {
-          let flag = 0;
-          Object.values(rentusermachines).map((item2) => {
-            if (item2.machineid == item._id) {
-              flag = 1;
-              item.status = item2.requeststatus;
-            }
-          });
-          if (flag) return item;
-        });
-
-        setfilterusermachines(data);
-        setfilterrentmachines(rentdata);
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        setloading(false);
-        if (err.response?.status === 401) {
-          dispatch(remove());
+        if (!response.data.others) {
+          toast.error("Network Error");
+          setloading(false);
           navigate("/signin");
+        } else {
+          dispatch(add(user));
+          dispatch(gettoken(token));
+          setloading(false);
         }
+        setloading(false);
+      } catch (err) {
+        dispatch(remove());
+        console.log(err.response.data.message);
+        setloading(false);
+        navigate("/signin");
       }
+
+      const data = machinedata.filter(
+        (item) => item.sellerid === usermachinedata.userid
+      );
+      const rentusermachines = usermachinedata.rented;
+      const rentdata = machinedata.filter((item) => {
+        let flag = 0;
+        Object.values(rentusermachines).map((item2) => {
+          if (item2.machineid == item._id) {
+            flag = 1;
+            item.status = item2.requeststatus;
+          }
+        });
+        if (flag) return item;
+      });
+
+      setfilterusermachines(data);
+      setfilterrentmachines(rentdata);
     };
 
     fetchdata();

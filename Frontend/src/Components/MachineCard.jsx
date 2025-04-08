@@ -65,89 +65,83 @@ const MachineCard = (props) => {
 
   return (
     <>
-      {modal ? (
-        <div
-          className="relative z-10"
-          aria-labelledby="modal-title"
-          role="dialog"
-          aria-modal="true"
-        >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+      {modal && (
+        <div className="fixed inset-0 z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+          {/* Background overlay */}
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 backdrop-blur-sm transition-opacity"></div>
 
-          <div className="fixed inset-0 z-10 overflow-y-auto">
-            <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-              <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                  <div className="sm:flex sm:items-start">
-                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
-                      <svg
-                        className="h-6 w-6 text-green-600"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
-                        />
+          {/* Modal panel */}
+          <div className="fixed inset-0 z-10 flex items-center justify-center p-4">
+            <div className="relative w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white shadow-2xl transition-all">
+              <div className="bg-white p-6">
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                      <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
-                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                      <h3
-                        className="text-base font-semibold leading-6 text-gray-900"
-                        id="modal-title"
-                      >
-                        Request Confirmation
-                      </h3>
-                      <div className="mt-2">
-                        <p className="text-sm text-gray-500">
-                          Are you sure you want to Confirm your Request?
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          The Request for the Machine {props.item.title} with
-                          Bidamount of{" "}
-                          <span className="font-extrabold text-gray-700">
-                            RS.{bidamount}
-                          </span>{" "}
-                          for{" "}
-                          <span className="font-extrabold text-gray-700">
-                            {tenure}
-                          </span>{" "}
-                          years
-                        </p>
-                      </div>
-                      <p className="text-lg font-bold text-gray-700 py-3">
-                        Total Amount : RS.{bidamount * tenure}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                      Confirm Rental Request
+                    </h3>
+                    <div className="space-y-4">
+                      <p className="text-sm text-gray-500">
+                        Please review your rental request details:
                       </p>
+                      <div className="bg-gray-50 p-6 rounded-xl space-y-3">
+                        <div className="flex justify-between items-center pb-3 border-b border-gray-200">
+                          <span className="text-sm font-medium text-gray-500">Machine</span>
+                          <span className="text-sm font-semibold text-gray-900">{props.item.title}</span>
+                        </div>
+                        <div className="flex justify-between items-center pb-3 border-b border-gray-200">
+                          <span className="text-sm font-medium text-gray-500">Bid Amount</span>
+                          <span className="text-sm font-semibold text-gray-900">₹{bidamount}</span>
+                        </div>
+                        <div className="flex justify-between items-center pb-3 border-b border-gray-200">
+                          <span className="text-sm font-medium text-gray-500">Duration</span>
+                          <span className="text-sm font-semibold text-gray-900">{tenure} year(s)</span>
+                        </div>
+                        <div className="flex justify-between items-center pt-2">
+                          <span className="text-base font-medium text-gray-900">Total Amount</span>
+                          <span className="text-lg font-bold text-green-600">₹{bidamount * tenure}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                  <button
-                    type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-600 sm:ml-3 sm:w-auto"
-                    onClick={handlesubmit}
-                  >
-                    {loading ? "Loading..." : "Confirm"}
-                  </button>
-
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                    onClick={() => setmodal(false)}
-                  >
-                    Cancel
-                  </button>
-                </div>
+              </div>
+              <div className="bg-gray-50 px-6 py-4 flex flex-col sm:flex-row-reverse gap-3">
+                <button
+                  type="button"
+                  onClick={handlesubmit}
+                  disabled={loading}
+                  className="w-full sm:w-auto inline-flex justify-center items-center rounded-lg px-8 py-3 bg-green-600 text-white text-base font-semibold hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                >
+                  {loading ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Processing...
+                    </>
+                  ) : (
+                    'Confirm Request'
+                  )}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setmodal(false)}
+                  className="w-full sm:w-auto inline-flex justify-center items-center rounded-lg px-8 py-3 bg-white text-gray-700 font-semibold border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+                >
+                  Cancel
+                </button>
               </div>
             </div>
           </div>
         </div>
-      ) : (
-        ""
       )}
 
       <div className=" bg-gray-300 border-gray-900 border-1 min-h-[25vh] w-[28vw] flex-wrap shadow-md rounded-lg m-3 flex justify-between items-center max-xl:w-[30vw] max-lg:w-[50vw] max-md:w-[70vw] max-sm:w-[90vw] max-sm:min-h-[20vh]">
